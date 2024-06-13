@@ -3,3 +3,4 @@
 2. Открываем вс код и запускаем сервер с помощью команды "node server.js"
 3. Запускаем файл index.html и в строке пишем ключевые слова
 4. Ключевые слова: quotes,exchange,books,astronomy,crypto,technology
+да
