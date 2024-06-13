@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "chrome",
+            "name": "http://mevnid-8hoGsi-zixdom",
+            "request": "launch",
+            "url": "http://mevnid-8hoGsi-zixdom"
+        }
+    ]
+}
