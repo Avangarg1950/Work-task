@@ -37,7 +37,7 @@
                 alert('Please enter a keyword');
                 return;
             }
-            const response = await fetch(`https://your-server.com/api/urls?keyword=${keyword}`); // Replace with your server URL
+            const response = await fetch(`http://mevnid-8hoGsi-zixdom=${keyword}`); // Replace with your server URL
             const urlsDiv = document.getElementById('urls');
             urlsDiv.innerHTML = '';
 
@@ -70,7 +70,7 @@
                 contentDiv.innerText = localStorage.getItem(url);
             } else {
                 try {
-                    const response = await fetch(`https://your-server.com/api/download?url=${url}`); // Replace with your server URL
+                    const response = await fetch(`http://mevnid-8hoGsi-zixdom=${url}`); // Replace with your server URL
                     if (response.ok) {
                         const content = await response.text();
                         localStorage.setItem(url, content);
