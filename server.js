@@ -7,7 +7,7 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-const keyword = {
+const keywordUrls = {
   'quotes': [
     'https://api.quotable.io/random',
     'https://api.quotable.io/random',
@@ -40,20 +40,19 @@ const keyword = {
   ]
 };
 
-
 const shortenUrl = async (url) => {
   try {
     const response = await axios.get(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`);
     return response.data;
   } catch (error) {
     console.error('Error shortening URL:', error);
-    return url;  
+    return url;
   }
 };
 
 app.get('/urls/:keyword', async (req, res) => {
   const keyword = req.params.keyword;
-  const urls = keyword[keyword];
+  const urls = keywordUrls[keyword];
   if (urls) {
     try {
       const shortenedUrls = await Promise.all(urls.map(url => shortenUrl(url)));
