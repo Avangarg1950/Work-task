@@ -12,12 +12,8 @@ const data = {
 app.use(express.static('public'));
 
 // Endpoint to get URLs by keyword
-app.get('/api/urls', (req, res) => {
-  const keyword = req.query.keyword?.trim();
-  if (!keyword) {
-    return res.status(400).json({ error: "Keyword is required" });
-  }
-  
+app.get('/api/urls', validateKeyword, (req, res) => {
+  const { keyword } = req.query;
   const urls = data[keyword];
   if (urls) {
     res.json(urls);
@@ -27,12 +23,8 @@ app.get('/api/urls', (req, res) => {
 });
 
 // Endpoint to download content from a URL
-app.get('/api/download', async (req, res) => {
-  const url = req.query.url?.trim();
-  if (!url) {
-    return res.status(400).json({ error: "URL is required" });
-  }
-
+app.get('/api/download', validateUrl, async (req, res) => {
+  const { url } = req.query;
   try {
     const response = await axios.get(url, { responseType: 'arraybuffer' });
     const contentType = response.headers['content-type'];
@@ -48,6 +40,26 @@ app.get('/api/download', async (req, res) => {
     res.status(500).json({ error: "Error downloading content", details: error.message });
   }
 });
+
+// Middleware to validate keyword
+function validateKeyword(req, res, next) {
+  const keyword = req.query.keyword?.trim();
+  if (!keyword) {
+    return res.status(400).json({ error: "Keyword is required" });
+  }
+  req.query.keyword = keyword;
+  next();
+}
+
+// Middleware to validate URL
+function validateUrl(req, res, next) {
+  const url = req.query.url?.trim();
+  if (!url) {
+    return res.status(400).json({ error: "URL is required" });
+  }
+  req.query.url = url;
+  next();
+}
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
