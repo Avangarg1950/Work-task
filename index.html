@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Keyword Content Downloader</title>
+</head>
+<body>
+    <h1>Keyword Content Downloader</h1>
+    <input type="text" id="keyword" placeholder="Enter keyword">
+    <button onclick="getUrls()">Get URLs</button>
+    <div id="urls"></div>
+    <div id="status"></div>
+    <div id="content"></div>
+
+    <script>
+        async function getUrls() {
+            const keyword = document.getElementById('keyword').value;
+            const response = await fetch(`https://your-server.com/api/urls?keyword=${keyword}`); // Replace with your server URL
+            const urlsDiv = document.getElementById('urls');
+            urlsDiv.innerHTML = '';
+
+            if (response.ok) {
+                const urls = await response.json();
+                urls.forEach(url => {
+                    const urlElement = document.createElement('div');
+                    const button = document.createElement('button');
+                    button.innerText = `Download from ${url}`;
+                    button.onclick = () => downloadContent(url);
+                    urlElement.appendChild(button);
+                    urlsDiv.appendChild(urlElement);
+                });
+            } else {
+                urlsDiv.innerText = 'No URLs found for this keyword.';
+            }
+        }
+
+        async function downloadContent(url) {
+            const statusDiv = document.getElementById('status');
+            const contentDiv = document.getElementById('content');
+            statusDiv.innerText = 'Downloading...';
+
+            if (localStorage.getItem(url)) {
+                statusDiv.innerText = 'Content already downloaded';
+                contentDiv.innerText = localStorage.getItem(url);
+            } else {
+                try {
+                    const response = await fetch(`https://your-server.com/api/download?url=${url}`); // Replace with your server URL
+                    if (response.ok) {
+                        const content = await response.text();
+                        localStorage.setItem(url, content);
+                        contentDiv.innerText = content;
+                        statusDiv.innerText = 'Download complete';
+                    } else {
+                        statusDiv.innerText = 'Error downloading content';
+                    }
+                } catch (error) {
+                    statusDiv.innerText = 'Error downloading content';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
