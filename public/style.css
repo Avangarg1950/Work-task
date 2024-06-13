@@ -1,7 +1,7 @@
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f0f2f5;
-  color: #333;
+  background-color: #000000;
+  color: #ffffff;
   margin: 0;
   padding: 20px;
   display: flex;
@@ -25,7 +25,7 @@ h1 {
 #keyword-input {
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #ff0000;
   border-radius: 5px;
   margin-right: 10px;
   width: 70%;
@@ -34,8 +34,8 @@ h1 {
 button {
   padding: 10px 20px;
   font-size: 16px;
-  color: #fff;
-  background-color: #00ff40;
+  color: #ff0000;
+  background-color: #a200ff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -43,7 +43,7 @@ button {
 }
 
 button:hover {
-  background-color: #00ff40;
+  background-color: #ccff00;
 }
 
 .url-list {
@@ -57,7 +57,7 @@ button:hover {
   margin: 5px 0;
   padding: 10px;
   font-size: 14px;
-  color: #00ff40;
+  color: #ff0095;
   background: none;
   border: 1px solid #007bff;
   border-radius: 5px;
